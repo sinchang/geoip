@@ -28,22 +28,21 @@ func main() {
   app.Use(logger.New())
   
   // set the view engine target to ./templates folder
-	app.RegisterView(iris.HTML("./templates", ".html").Reload(true))
+  app.RegisterView(iris.HTML("./templates", ".html").Reload(true))
 
 	// Method:   GET
 	// Resource: http://localhost:8080
 	app.Handle("GET", "/", func(ctx iris.Context) {
     ip := ctx.FormValue("ip")
     res := Response{}
-    url := ""
 
     if ip == "" {
-      url = "https://ipinfo.io/json"
-    } else {
-      url = "https://ipinfo.io/" + ip + "/json"
+      ip = ctx.RemoteAddr()
     }
 
-    resp, body, errs := gorequest.New().Get(url).End()
+    fmt.Println(ip)
+
+    resp, body, errs := gorequest.New().Get("https://ipinfo.io/" + ip + "/json").End()
 
     if errs != nil {
       ctx.JSON(iris.Map{"message": "error"}) 
