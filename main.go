@@ -7,6 +7,7 @@ import (
   "github.com/parnurzeal/gorequest"
   "encoding/json"
   "fmt"
+  "os"
 )
 
 type Response struct {
@@ -67,6 +68,11 @@ func main() {
 		}
 	})
 
-	// http://localhost:8080
-	app.Run(iris.Addr(":8080"), iris.WithoutServerError(iris.ErrServerClosed))
+  port := os.Getenv("PORT")
+
+	if port == "" {
+		port = "3000"
+  }
+  
+	app.Run(iris.Addr(":" + port), iris.WithoutServerError(iris.ErrServerClosed))
 }
