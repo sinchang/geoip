@@ -1,6 +1,10 @@
 # GeoIp
 
-https://ipsb.herokuapp.com/
+## URL
+
+https://ipsb.herokuapp.com?ip={ip}
+
+Example: https://ipsb.herokuapp.com/?ip=8.8.8.8
 
 ## Stack
 
