@@ -1,1 +1,1 @@
-web: ipsb
+web: geoip
