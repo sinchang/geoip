@@ -37,10 +37,8 @@ func main() {
     res := Response{}
 
     if ip == "" {
-      ip = ctx.RemoteAddr()
+      ip = ctx.GetHeader("X-Forwarded-For")
     }
-
-    fmt.Println(ip)
 
     resp, body, errs := gorequest.New().Get("https://ipinfo.io/" + ip + "/json").End()
 
@@ -70,7 +68,7 @@ func main() {
   port := os.Getenv("PORT")
 
 	if port == "" {
-		port = "3000"
+		port = "3001"
   }
   
 	app.Run(iris.Addr(":" + port), iris.WithoutServerError(iris.ErrServerClosed))
